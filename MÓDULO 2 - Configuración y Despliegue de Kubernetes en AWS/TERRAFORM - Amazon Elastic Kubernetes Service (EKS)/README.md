@@ -33,7 +33,7 @@ Revisar los valores de las variables, si necesitas ajustar la region "us-east-1"
  En el siguiente comando remplazamos el nombre del cluster y la region quedando asi.
  Eg:
  ```
- aws eks update-kubeconfig --name my-cluster --region us-east-1
+ aws eks update-kubeconfig --name my-eks --region us-east-1
 
  ```
 
