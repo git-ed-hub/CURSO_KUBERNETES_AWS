@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-pvc
+spec:
+  accessModes:
+    - ReadWriteMany  # Modo de acceso que permite múltiples conexiones
+  resources:
+    requests:
+      storage: 5Gi  # Capacidad solicitada (puedes usar cualquier tamaño, EFS no tiene un límite mínimo)
+  storageClassName: efs-sc  # Referencia al Storage Class de EFS

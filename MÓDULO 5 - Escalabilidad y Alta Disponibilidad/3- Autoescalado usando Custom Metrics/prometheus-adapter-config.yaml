@@ -1,0 +1,8 @@
+rules:
+  - seriesQuery: '{__name__=~"^http_requests_total$"}'  # Nombre de la métrica en Prometheus
+    resources:
+      template: <<.Resource>>
+    name:
+      matches: "^http_requests_total$"
+      as: "http_requests_total_per_second"  # Nombre de la métrica personalizada
+    metricsQuery: 'sum(rate(http_requests_total[5m])) by (<<.Resource>>)'
