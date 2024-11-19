@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Descubre el Número Fibonacci</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tooplate-style.css') }}">
+</head>
+<body>
+    <!-- MENU -->
+    <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">Prometheus Metrics</a>
+            </div>
+        </div>
+        <!-- MENU LINKS -->
+    </section>
+
+    <!-- FEATURE -->
+    <section id="home" data-stellar-background-ratio="0.5">
+      <div class="overlay">  
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-sm-12">
+                    <br><br><br><br><br>
+                    <div class="home-info">
+                        <h3>Professional Test</h3>
+                        <h1>Descubre el Número Fibonacci!</h1>
+                        <form id="fibonacciForm" class="online-form">
+                            <input type="number" id="count" min="1" max="1000" class="form-control" placeholder="Coloca el Numero ¿Que quieras conocer?" required>
+                            <button type="submit" class="form-control">Get started</button>
+                        </form>
+                        <br><br>
+                        <div id="sequence-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>  
+    </section>
+
+    <!-- SCRIPTS -->
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#fibonacciForm').on('submit', function(event) {
+                event.preventDefault();
+                const number = $('#count').val();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ number: number }),
+                    success: function(response) {
+                        $('#sequence-result').html(`<h1>${response.result}</h1>`);
+                    },
+                    error: function(error) {
+                        $('#sequence-result').html(`<p class="text-danger">Error: ${error.responseJSON.error}</p>`);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+data:
+  my.cnf: |
+    [mysqld]
+    !includedir /etc/mysql/conf.d/
+  primary.cnf: |
+    # Apply this config only on the primary.
+    [mysqld]
+    log-bin
+    gtid_mode=ON
+    enforce_gtid_consistency=ON
+  replica.cnf: |
+    # Apply this config only on replicas.
+    [mysqld]
+    gtid_mode=ON
+    enforce_gtid_consistency=ON
+    super-read-only
+    log_bin=OFF
+---
+# Headless service for stable DNS entries of StatefulSet members.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  clusterIP: None
+  selector:
+    app: mysql
+---
+# Client service for connecting to any MySQL instance for reads.
+# For writes, you must instead connect to the primary: mysql-0.mysql.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-read
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+    readonly: "true"
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  selector:
+    app: mysql

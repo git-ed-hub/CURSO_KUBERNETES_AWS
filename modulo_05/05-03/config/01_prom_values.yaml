@@ -1,0 +1,15 @@
+defaultRules:
+  rules:
+    etcd: false
+kubeControllerManager:
+  enabled: false
+kubeEtcd:
+  enabled: false
+kubeScheduler:
+  enabled: false
+kubeApiServer:
+  enabled: false
+grafana:
+  image:
+    tag: 11.2.1
+  adminPassword: test123

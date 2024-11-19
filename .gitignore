@@ -1,10 +1,6 @@
-modulo_1/terraform_gcloud_cluster_k8s_kubeadm/.terraform
-modulo_1/terraform_gcloud_cluster_k8s_kubeadm/cluster-k8s-437300-65cea77a74c6.json
-modulo_1/terraform_gcloud_cluster_k8s_kubeadm/.terraform.lock.hcl
-modulo_1/terraform_gcloud_cluster_k8s_kubeadm/terraform.tfstate
-modulo_1/terraform_gcloud_cluster_k8s_kubeadm/terraform.tfstate.backup
-modulo_2/terraform_aws_eks/.terraform
-modulo_2/terraform_aws_eks/.terraform.lock.hcl
-modulo_2/terraform_aws_eks/terraform.tfstate.backup
-modulo_2/terraform_aws_eks/terraform.tfstate
+**.json
+!policy.json
 **/.terraform
+**.tfstate
+**.backup
+**.lock.hcl

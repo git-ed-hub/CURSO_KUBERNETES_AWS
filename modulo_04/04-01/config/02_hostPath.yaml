@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-gallery
+spec:
+  selector:
+    matchLabels:
+      app: app-gallery
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-gallery
+    spec:
+      containers:
+        - name: app-gallery
+          image: testsysadmin8/flask-img:latest
+          ports:
+            - name: http
+              containerPort: 5000
+          volumeMounts:
+            - name: app-gallery-volume
+              mountPath: /app/volume
+      volumes:
+        - name: app-gallery-volume
+          hostPath:
+            path: /volume

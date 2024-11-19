@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Kubernetes Volume</title>
+        <!-- CSS FILES -->        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-icons.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/templatemo-topic-listing.css') }}"> 
+
+    </head>
+    <body id="top">
+        <main>
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <i class="bi-back"></i>
+                        <span>Volume</span>
+                    </a>
+                    <div class="d-lg-none ms-auto me-4">
+                        <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#section_1">Home</a>
+                            </li>
+                        </ul>
+                        <div class="d-none d-lg-block">
+                            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-12 mx-auto">
+                            <h1 class="text-white text-center">Galeria de Imagenes</h1>
+                            <h6 class="text-center">volume</h6>
+                            <form action="/upload" method="post" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" enctype="multipart/form-data">
+                                <div class="input-group">
+                                    <span class="input-group-text bi-search" id="basic-addon1"></span>
+                                    <input name="file" type="file" class="form-control" style="border: none; box-shadow: none;"> 
+                                    <button type="submit" class="btn btn-primary">Subir Imagen</button>   
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="featured-section">
+                {% if images %}
+                <div class="container">
+                    <div class="row">
+                        <div id="contentDiv" class="d-flex justify-content-center">
+                            <div class="custom-block bg-white shadow-lg">
+                                {% for image in images %}
+                                    <img src="{{ url_for('uploaded_file', filename=image) }}" width="200">
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </section>            
+        </main>
+<footer class="site-footer section-padding">
+            <div class="container">
+                <div class="row">
+                    <div class="social-share d-flex">
+                        <p class="me-4">Share:</p>
+
+                        <ul class="social-icon">
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-twitter"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-facebook"></a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="#" class="social-icon-link bi-pinterest"></a>
+                            </li>
+                        </ul>
+
+                        <a href="#" class="custom-icon bi-bookmark ms-auto"></a>
+                    </div>
+            </div>
+        </footer>
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/jquery.sticky.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/click-scroll.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+        <script>
+            // Selecciona el div de contenido
+            const contentDiv = document.getElementById("contentDiv");
+        
+            // Verifica si el contenedor de imágenes está vacío
+            if (!contentDiv.querySelector("img")) {
+                contentDiv.style.display = "none";
+            }
+        </script>
+    </body>
+</html>

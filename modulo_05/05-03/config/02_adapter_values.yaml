@@ -1,0 +1,13 @@
+rules:
+  rules:
+    - seriesQuery: 'flask_http_request_total{namespace!="",pod!=""}'
+      resources:
+        overrides:
+          namespace:
+            resource: namespace
+          pod:
+            resource: pod
+      name:
+        matches: "^(.*)_total"
+        as: "http_request_total"
+      metricsQuery: 'sum(rate(flask_http_request_total{<<.LabelMatchers>>}[2m])) by (namespace, pod)'

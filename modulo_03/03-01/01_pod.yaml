@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mi-pod
+spec:
+  containers:
+    - name: nginx
+      image: testsysadmin8/nginx-game:latest
+      ports:
+        - containerPort: 80

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx-game
+  name: nginx-game
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-game
+  template:
+    metadata:
+      labels:
+        app: nginx-game
+    spec:
+      containers:
+      - image: testsysadmin8/nginx-game:latest
+        name: nginx-game
+        ports:
+        - name: web
+          protocol: TCP
+          containerPort: 80

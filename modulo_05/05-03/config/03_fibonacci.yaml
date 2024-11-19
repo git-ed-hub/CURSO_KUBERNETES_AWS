@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fibonacci
+  name: fibonacci
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fibonacci
+  template:
+    metadata:
+      labels:
+        app: fibonacci
+    spec:
+      containers:
+      - image: testsysadmin8/fibonacci:latest
+        name: fibonacci
+        ports:
+        - name: http
+          protocol: TCP
+          containerPort: 8060
+        resources:
+          requests:
+            cpu: "10m"
+            memory: 128Mi
+          limits:
+            cpu: "200m"
+            memory: 256Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: fibonacci-svc
+  labels:
+    app: fibonacci
+spec:
+  selector:
+    app: fibonacci
+  ports:
+  - name: http
+    protocol: TCP
+    port: 8060
+    targetPort: 8060
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app: kube-prometheus-stack-operator
+    release: monitoring
+    app.kubernetes.io/name: fibonacci  # Puedes agregar etiquetas adicionales
+  name: fibonacci-app
+  namespace: monitoring  # Asegúrate de estar en el mismo namespace del operador
+spec:
+  namespaceSelector:
+    matchNames:
+      - default  # El namespace donde está tu Service de Fibonacci
+  endpoints:
+  - interval: 10s
+    port: http  # Asegúrate de que este puerto sea el correcto
+  selector:
+    matchLabels:
+      app: fibonacci

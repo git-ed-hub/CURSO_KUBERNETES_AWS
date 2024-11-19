@@ -1,0 +1,47 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-sc
+provisioner: cluster.local/nfs-subdir-external-provisioner  # Este nombre debe coincidir con el del provisionador que instalaste
+parameters:
+  archiveOnDelete: "false"  # Opción para mantener o eliminar datos al eliminar el PVC
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-sc-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs-sc
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-gallery
+spec:
+  selector:
+    matchLabels:
+      app: app-gallery
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app-gallery
+    spec:
+      containers:
+        - name: app-gallery
+          image: testsysadmin8/flask-img:latest
+          ports:
+            - name: http
+              containerPort: 5000
+          volumeMounts:
+            - name: nfs-volume
+              mountPath: /app/volume
+      volumes:
+        - name: nfs-volume
+          persistentVolumeClaim:
+            claimName: nfs-sc-pvc
