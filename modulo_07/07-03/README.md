@@ -164,9 +164,7 @@ NOTES:
 
 ### Instalacion desde el repositorio privado amozon ecr
 
-Si queremos que el despliegue sea en un cluster EKS solo ejecutamos el comando de instalacion.
-
-Si queremos desplegarlo con minikube necesitamos primero autenticarnos ya que es un repositorio privado lo haremos con el siguiente comando:
+Si queremos desplegar con minikube o EKS necesitamos primero autenticarnos ya que es un repositorio privado lo haremos con el siguiente comando:
 ~~~sh
 aws ecr get-login-password --region us-east-1 | helm registry login --username AWS --password-stdin 124355643940.dkr.ecr.us-east-1.amazonaws.com
 ~~~
