@@ -1,0 +1,41 @@
+stages:
+  - build
+  - push
+  - deploy
+
+build_image:
+  stage: build
+  image: docker:19.03.12
+  services:
+    - docker:dind
+  before_script:
+    - apk add --no-cache curl python3 py3-pip && pip install awscli
+  script:
+    - docker build -t testsysadmin8/flappybird:$CI_COMMIT_SHA .
+  only:
+    - main
+
+push_image:
+  stage: push
+  image: docker:19.03.12
+  services:
+    - docker:dind
+  script:
+    - docker login -u testsysadmin8 -p "$DOCKERPASS"
+    - docker push testsysadmin8/flappybird:$CI_COMMIT_SHA
+  only:
+    - main
+
+deploy_minikube:
+  stage: deploy
+  script:
+    - rm -rf $HOME/.kube
+    - mkdir -p $HOME/.kube
+    - echo "$CONFIG" > $HOME/.kube/config
+    - export KUBECONFIG=$HOME/.kube/config
+    - kubectl config get-contexts
+    - kubectl config use-context minikube
+    - kubectl run flappybird-pod --image=testsysadmin8/flappybird:$CI_COMMIT_SHA
+    - kubectl apply -f deployment.yaml
+  only:
+    - main

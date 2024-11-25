@@ -1,0 +1,123 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+html,body{
+    min-height: 100vh;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(images/background1.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+
+
+#board {
+    background-image: url(images/backgroundimg.png);
+    display: none;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+
+}
+
+#gameover {
+    background-color: rgb(211, 210, 208);
+    padding: 10px 50px;
+    border-radius: 12px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    display: none;
+
+    h4 {
+        color: yellowgreen;
+        text-align: center;
+    }
+
+    #again {
+        padding: 10px 20px;
+        background-color: yellowgreen;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+
+    #again:active {
+        transform: translateY(10px);
+    }
+}
+
+#start {
+    background-color: rgb(211, 210, 208);
+    padding: 10px 50px;
+    border-radius: 12px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+    position: absolute;
+
+    h4 {
+        color: yellowgreen;
+        text-align: center;
+    }
+
+    #startgame {
+        padding: 10px 20px;
+        background-color: yellowgreen;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        transition: 0.5s;
+        margin: auto;
+        display: block;
+        cursor: pointer;
+    }
+
+    #startgame:active {
+        transform: translateY(10px);
+    }
+}
+
+#up {
+    position: absolute;
+    padding: 10px 20px;
+    background-color: yellowgreen;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    transition: 0.5s;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+    font-weight: 800;
+    bottom:20%;
+    display: none;
+}
+
+#up:active {
+    transform: translateY(10px);
+}
+
+@media (min-width : 310px) and (max-width : 598px) {
+    #up{
+        display: block;
+    }
+    #board{
+        width: 80vw;
+        height: 80vh;
+    }
+    }
+@media (min-width : 599px) and (max-width : 877px) {
+#up{
+    display: block;
+}
+#board{
+    width: 60vw;
+    height: 60vh;
+}
+}
